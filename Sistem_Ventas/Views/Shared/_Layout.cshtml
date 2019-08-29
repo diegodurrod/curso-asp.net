@@ -1,0 +1,121 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Sistem_Ventas</title>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/materialize/css/materialize.css" />
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-wrapper cyan darken-2">
+            <a href="#!" class="brand-logo center">
+                Sistema de ventas &amp; facturación
+            </a>
+            @if (SignInManager.IsSignedIn(User))
+            {
+                <div id="menuNavbar1">
+                    <ul class="right hide-on-med-and-down">
+                        <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="SessionClose">
+                            Salir
+                        </a>
+                    </ul>
+
+                    <a href="#" data-target="slide-out" class="btn-floating btn-large waves-effect waves-light cyan darken-2 sidenav-trigger"></a>
+                </div>
+            }
+        </div>
+    </nav>
+    <ul id="slide-out" class="sidenav">
+        <li>
+            <div class="user-view cyan darken-2">
+                <img id="foto1" class="circle responsive-img valign profile-image" src="~/images/fotos/default.jpg" width="50" />
+                <span class="white-text" id="name1">@UserManager.GetUserName(User)</span>
+                <span class="white-text" id="role1">@ViewData["Roles"]</span>
+            </div>
+        </li>
+        <li>
+            <a asp-area="Principal" asp-controller="Principal" asp-action="Index">
+                Inicio
+            </a>
+        </li>
+        <li>
+            <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="Index">
+                Usuarios
+            </a>
+        </li>
+        <li>
+            <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="SessionClose">
+                Salir
+            </a>
+        </li>
+    </ul>
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <div id="menuNavbar2">
+            <div id="main">
+                <div class="wrapper">
+                    <aside id="left-sidebar-nav">
+                        <ul id="slide-out" class="side-nav fixed leftside-navigation">
+                            <li class="user-details cyan darken-2">
+                                <div class="row">
+                                    <div class="col s5 m4 l6">
+                                        <img src="~/images/fotos/default.jpg" alt="" id="foto2" class="circle responsive-img valign profile-image" />
+                                    </div>
+                                    <div class="col s8 m8 l8">
+                                        <p class="white-text" id="name2">@UserManager.GetUserName(User)</p>
+                                        <p class="white-text" id="name2">@ViewData["Roles"]</p>
+                                    </div>
+                                </div>
+                            </li>
+                            <div class="collection">
+                                <a asp-area="Principal" asp-controller="Principal" asp-action="Index" id="enlace1" class="collection-item">Inicio</a>
+                                <a asp-area="Usuarios" asp-controller="Usuarios" asp-action="Index" id="enlace2" class="collection-item">Usuarios</a>
+                            </div>
+                        </ul>
+                    </aside>
+                </div>
+            </div>
+        </div>
+    }
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2019 - Sistema Ventas</p>
+        </footer>
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="~/materialize/js/materialize.min.js" asp-append-version="true"></script>
+        <script src="~/js/site.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery"
+                crossorigin="anonymous"
+                integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT">
+        </script>
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

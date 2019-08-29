@@ -1,0 +1,47 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+@model LoginViewModels
+<center>
+    <div class="container">
+        <div class="ro">
+            <div class="col s12 m7">
+                <div class="card">
+                    <div class="card-content">
+                        <section>
+                            <!-- asp-controller hará referencia al controlador a ejecutar -->
+                            <!-- asp-action hará referencia al método del controlador a ejecturar -->
+                            <form asp-controller="Home" asp-action="Index" method="post">
+                                <h4>Iniciar sesión</h4>
+                                <hr>
+                                <!-- En este div se mostrarán los posibles mensajes de error -->
+                                <div asp-validation-summary="All" class="text-danger"></div>
+                                <div class="input-field col s12">
+                                    <!-- Con `la propiedad Input.Email relacionamos las propiedades de InputViewModels -->
+                                    <label asp-for="Input.Email"></label>
+                                    <input asp-for="Input.Email" class="form-control" />
+                                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                </div>
+                                <div class="input-field col s12">
+                                    <!-- Con `la propiedad Input.Email relacionamos las propiedades de InputViewModels -->
+                                    <label asp-for="Input.Password"></label>
+                                    <input asp-for="Input.Password" class="form-control" />
+                                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                                </div>
+                                <center class="form-group">
+                                    <button type="submit" id="btnLogn" class="waves-effect waves-light btn">Iniciar sesión</button>
+                                </center>
+                            </form>
+                        </section>
+                        <br />
+                        <label id="indexMessage" class="error">@Html.DisplayFor(m => m.ErrorMessage)</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</center>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}

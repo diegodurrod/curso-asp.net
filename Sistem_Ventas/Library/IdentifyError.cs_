@@ -1,0 +1,6 @@
+﻿namespace Sistem_Ventas.Library
+{
+    public class IdentityError
+    {
+    }
+}
